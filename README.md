@@ -1,4 +1,4 @@
-# sibtest
+# gaem
 
 gaem is a leiningen plugin for managing appengine-magic applications.
 It replaces the plugin functionality of the appengine-magic package.
