@@ -1,0 +1,38 @@
+Switching to a standard lein plugin and new template involves:
+
+    * remove <ae>/resources, which just contains appengine-web.xml and
+      web.xml; these are both converted to mustache template files,
+      moved to the template plugin at
+      gaem-template/src/leiningen/new/gaem, and installed to
+      <proj>/etc.  The gaem config task then processes them and puts
+      the result in war/WEB-INF.
+
+    * removal of src/appengine_magic/leiningen_helpers.clj.  all that
+      functionality migrates to the template and/or the new plugin.
+
+    * removal of the lancet stuff.  replaced by std clojure.java.io
+
+    * removal of appengine-clean.  this can be handled by setting
+      :target-path in the project.clj and using lein clean, or by a
+      gaem plugin "clean" subtask.
+
+    * basically removal of all the plugin stuff from the appengine
+      magic library, so it becomes just the library and the task stuff
+      is in a separate plugin.  The appengine_new plugin is replaced
+      by the template; the other tasks in appengine-magic/leiningen
+      become subtasks of a single new gaem plugin.
+
+Other stuff:
+
+    * appengine-magic.core/start seems to want to install the servlet
+      to service the root dir.  this should be controlled by web.xml,
+      no?
+
+    * ae also uses a set of conventions that may not work for
+      everybody.  Specifically, the Getting Started example implements
+      a single servlet as myapp/app_servlet.clj and puts the app logic
+      in myapp/core.clj.  We drop "core" (servlet apps have no
+      'center'), provide two skeletal servlets, each in a single file,
+      and name them according to functionality.  We also use
+      project.clj and mustache to distinguish between the Clojure name
+      of the servlet and its web.xml name.

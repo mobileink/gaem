@@ -1,0 +1,17 @@
+change name to appengine-magic/lein-template
+
+make the multiple app support controlled by an option, e.g. :multi
+
+VERSION numbers: gae only allows letters, numbers and hyphens.
+Support one version id for the clojure project, and different version
+ids for the google apps.  Check syntax of latter, convert '.' to '-'.
+
+Copy: either do a mass copy from statics to war tree, or use
+project.clj to control copying.
+
+http://stackoverflow.com/questions/8566531/listing-files-in-a-directory-in-clojure
+
+Templating:  lein-resource "A Leiningen plugin that copies files and transforms them using stencil"
+
+Apparently mustache uses dot notation to dig into structures, e.g.from
+{:a {:b x}} we get a.b (yielding x).  Fix the code to do this.
