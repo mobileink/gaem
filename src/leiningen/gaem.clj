@@ -4,11 +4,11 @@
 To create a new appengine-magic app, use the standard leiningen 'new' task
 with the gaem template, like so:
 
-    $ lein new gaem <myproj>.
+    $ lein new gaem <myproj>:<gae-app-id> /path/to-sdk
 
-Once you have created the app, use standard leiningen 'compile',
+Once you have created the app, you can use standard leiningen 'compile',
 'jar', 'uberjar' to deal with your clojure code.  They use the
-standard :target-path to decide where to put the jar."
+standard :target-path to decide where to put the jar.  This plugin also supports subtasks clean, config, and deploy."
   (:import java.io.File
            ;; com.google.appengine.tools.admin.AppCfg
            ;; [org.apache.commons.exec CommandLine DefaultExecutor]
