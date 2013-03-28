@@ -64,7 +64,7 @@
                             ;;                                                    (.delete out-appengine-web-xml)))))
                             (println "running AppCfg")
                             (let [path (.getCanonicalPath (io/as-file (:war (:gae-app project))))]
-                              (AppCfg/main (into-array ["--email=mobileink@gmail.com"
-                                                        "--enable_jar_splitting"
+                              ;; TODO: support args to AppCfg
+                              (AppCfg/main (into-array [ "--enable_jar_splitting"
                                                         "update"
                                                         path])))))))
