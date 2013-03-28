@@ -3,14 +3,17 @@
 gaem is a leiningen plugin for managing appengine-magic applications.
 It replaces the plugin functionality of the appengine-magic package.
 
-It is designed to work with the results of gaem-template, which can be found at:
+It is designed to work with the results of gaem-template, which can be
+found at https://github.com/greynolds/gaem-template.
 
 **WARNING** Alpha software.  Seems to work for me but needs more
   bullet-proofing.  I wouldn't try to use it with existing projects.
   But it is suitable for exploring appengine-magic, not to mention
   leiningen.  Documentation will have to wait, in the meantime the
   code should be clear enough provided you understand leiningen
-  templates and plugics, and mustache.
+  templates and plugins, and mustache.
+
+  Collaborators welcomed.
 
 ## Installation
 
