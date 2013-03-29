@@ -22,8 +22,10 @@
             (io/copy f (io/file to fn))))))))
 
 (defn delein [project & args]
-  (println "gaem deleining...")
-  (let [lib (str (:war (:gae-app project)) "/WEB-INF/lib/")]
+;;  (println "gaem deleining...")
+  (println "home: " (System/getProperty "user.home"))
+  (let [lib (str (:war (:gae-app project)) "/WEB-INF/lib/")
+        home (System/getProperty "user.home")]
     (flat-copy-tree (str (:gae-sdk project) "/lib/user") lib)
     ;; TODO: iterate over (:dependencies project) and copy jars to lib
     (doseq [dep (:dependencies project)]
@@ -32,9 +34,10 @@
             ; (println (format "local repo: %s" (:local-repo project)))
             (let [[a class] (.split (str name) "/")
                   group (.replace a "." "/")
-                  fpath (str "~/.m2/repository/" group "/" class "/" nbr)
+                  fpath (str home "/.m2/repository/" group "/" class "/" nbr)
                   fnm (str class "-" nbr ".jar")
-                  from (str fpath "/" fnm)]
+                  from (.getCanonicalPath (io/as-file (str fpath "/" fnm)))]
 ;;              (println (format "\tgroup: %s - class: %s\n\t%s" group class fnm))
-              (println (format "deleining %s" from))
-              (io/copy (.getAbsolutePath (io/file from)) (io/file lib fnm))))))))
+              (do
+                (println (format "deleining %s" from))
+                (io/copy (io/file from) (io/file lib fnm)))))))))

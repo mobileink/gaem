@@ -13,6 +13,8 @@ found at https://github.com/greynolds/gaem-template.
   code should be clear enough provided you understand leiningen
   templates and plugins, and mustache.
 
+  Latest version: 0.2.0-SNAPSHOT
+
   Collaborators welcomed.
 
 ## Installation
@@ -40,11 +42,35 @@ than the usual "Hello world" example.  Easier to subtract than to add.
 Step 2.  Configure the app - generate and install appengine-web.xml and web.xml, and install other source files to the war tree.
 
     $ cd myapp
-    $ lein gaem config
+    $ lein gaem config  ## generates web.xml, appengine-web.xml, etc.
+    $ lein gaem delein  ## copy jars from .m2 to war/WEB-INF/lib.
+      	   		## this is a requirement of the GAE
+			## development environment.
+
+Step 3.  compile stuff
+
+    $ lein compile  # to taste
+    $ lein uberjar  # necessary to run it on dev_appserver or upload
+
+Everything must be aot compiled to run on the dev server or the cloud.
+At least, that's how I it it to work.
 
 Step 3.  Mess around wid' it.
 
+You have two options.  One is to use the dev server that comes with the GAE SDK; the other is to use appengine-magic to run in a repl.
+
+dev_appserver.sh is what comes with the GAE SDK; it runs a local
+stubbish server environment.  You run it the same way you would if you
+were working in java: just run the shell script as per the GAE
+doccumentation.  Seems to work at the moment.
+
+The other, more interactive way, is to run your app in a repl:
+
     $ lein repl
+
+**CAVEAT** this was working, but it got broke in the process of
+  figuring out how to make dev_appserver work.  I'll fix it as soon as
+  possible.
 
 This starts the repl and launches the webapp.  You can nrepl into the
 repl, or you can edit the code and then do something like
