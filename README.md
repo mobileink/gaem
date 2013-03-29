@@ -24,7 +24,7 @@ run "lein install" (remember this is alpha stuff; if it ever makes it
 to prod status it'll live on the web somewhere).  The gaem plugin is
 only useful for projects created by the gaem-template, which have:
 
-  :plugins [[gaem "0.1.0-SNAPSHOT"]
+  :plugins [[gaem "0.2.0-SNAPSHOT"]
 
 ## Usage
 
