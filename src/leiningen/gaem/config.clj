@@ -149,7 +149,7 @@ run 'lein gaem config'."
                   (render "etc/web.xml.mustache" config)]
 
                  ["{{war}}/{{welcome}}"
-                  (render (render-text "{{static_src}}/html/{{welcome}}" data))]
+                  (render (render-text "{{static_src}}/{{welcome}}" data))]
 
                  ;; TODO copy the entire static src tree
 

@@ -8,15 +8,16 @@ with the gaem template, like so:
 
 Once you have created the app, you can use standard leiningen 'compile',
 'jar', 'uberjar' to deal with your clojure code.  They use the
-standard :target-path to decide where to put the jar.  This plugin also supports subtasks clean, config, and deploy."
+standard :target-path to decide where to put the jar.  This plugin also supports subtasks clean, config, delein, and deploy."
   (:import java.io.File
            ;; com.google.appengine.tools.admin.AppCfg
            ;; [org.apache.commons.exec CommandLine DefaultExecutor]
            )
-  (:require [leiningen.jar :as jar]
-            [leiningen.gaem.clean :as clean]
+  (:require [leiningen.gaem.clean :as clean]
             [leiningen.gaem.config :as config]
             [leiningen.gaem.deploy :as deploy]
+            [leiningen.gaem.dev_appserver :as dev_appserver]
+            [leiningen.gaem.delein :as delein]
             [leiningen.gaem.util :as util]
             [clojure.tools.cli :as cli]
             [clojure.tools.logging :as log :only [debug info]]))
@@ -56,7 +57,10 @@ standard :target-path to decide where to put the jar.  This plugin also supports
            not-found))))
   ([task] (resolve-task task #'task-not-found)))
 
-(defn #^{:subtasks [#'clean/clean #'config/config #'deploy/deploy]} 
+(defn #^{:subtasks [#'clean/clean #'config/config
+                    #'delein/delein
+                    #'dev_appserver/dev_appserver
+                    #'deploy/deploy]} 
   gaem
   "manage appengine-magic app"
   [project cmd & args]
