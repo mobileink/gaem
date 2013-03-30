@@ -42,22 +42,25 @@ than the usual "Hello world" example.  Easier to subtract than to add.
 Step 2.  Configure the app - generate and install appengine-web.xml and web.xml, and install other source files to the war tree.
 
     $ cd myapp
-    $ lein gaem config  ## generates web.xml, appengine-web.xml, etc.
+    $ lein gaem config  ## generates web.xml, appengine-web.xml, etc. from mustache files in etc, data in project.clj
     $ lein gaem delein  ## copy jars from .m2 to war/WEB-INF/lib.
       	   		## this is a requirement of the GAE
 			## development environment.
 
 Step 3.  compile stuff
 
-    $ lein compile  # to taste
+    $ lein compile  # required, to pull in appengine-magic code
     $ lein uberjar  # necessary to run it on dev_appserver or upload
 
 Everything must be aot compiled to run on the dev server or the cloud.
-At least, that's how I it it to work.
+At least, that's how I got it to work.
 
 Step 3.  Mess around wid' it.
 
-You have two options.  One is to use the dev server that comes with the GAE SDK; the other is to use appengine-magic to run in a repl.
+You have two options.  One is to use the dev_appserver that comes with
+the GAE SDK; the other is to use appengine-magic to run in a repl.
+Since the appengine-magic test server is not the same as
+dev_appserver, you should always test on the latter before uploading.
 
 dev_appserver.sh is what comes with the GAE SDK; it runs a local
 stubbish server environment.  You run it the same way you would if you
@@ -68,14 +71,31 @@ The other, more interactive way, is to run your app in a repl:
 
     $ lein repl
 
-**CAVEAT** this was working, but it got broke in the process of
-  figuring out how to make dev_appserver work.  I'll fix it as soon as
-  possible.
-
 This starts the repl and launches the webapp.  You can nrepl into the
-repl, or you can edit the code and then do something like
-(compojure.core/compile 'myapp.user) to load the new code for the user
-servlet.
+repl from your editor, or you can edit the code and then do something
+like (load-file "src/test/user.clj") to load the new code for the
+user servlet.
+
+The advantage of dev_appserver is that it supports multiple servlets,
+and, well, it's the official test device.  But it doesn't give you the
+interactive development process of a repl.  On the repl, on the other
+hand, you get interactive development, but you can only run one
+servlet at a time.  Fortunately you can easily switch among servlets
+by running load-file followed by ae/serve, and you can put this into a
+function with a short name.  For example (from :repl-options in
+project.clj):
+
+	(defn request []
+	  (do (load-file "src/test/request.clj")
+	    (ae/serve test.request/test-request)))
+
+Now you can quickly recompile and serve a different servlet in the repl:
+
+	user=> (request)
+
+Eventually it would be nice to run the dev appserver
+(DevAppServerMain) in the repl but that's a lot harder to do than you
+might think.
 
 Step 4.  Deploy to the cloud:
 
