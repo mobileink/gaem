@@ -28,6 +28,10 @@ Other stuff:
       to service the root dir.  this should be controlled by web.xml,
       no?
 
+    * ae/start does not read web.xml.  So running your app with a repl
+      may be useful but is not sufficient - it doesn't provide a
+      complete emulation of the gae environment.
+
     * ae also uses a set of conventions that may not work for
       everybody.  Specifically, the Getting Started example implements
       a single servlet as myapp/app_servlet.clj and puts the app logic
@@ -36,3 +40,9 @@ Other stuff:
       and name them according to functionality.  We also use
       project.clj and mustache to distinguish between the Clojure name
       of the servlet and its web.xml name.
+
+    * the general problem is that appengine-magic's dev server is an
+      incomplete reimplementation of the sdk's dev server.  that's
+      great insofar as it allows us to use repl development, but bad
+      insofar as it is incomplete.  so a goal would be to first split
+      the functionality out from the lib, and then to complete it.
