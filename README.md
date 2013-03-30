@@ -61,10 +61,13 @@ You have two options.  One is to use the dev_appserver that comes with
 the GAE SDK; the other is to use appengine-magic to run in a repl.
 Since the appengine-magic test server is not the same as
 dev_appserver, you should always test on the latter before uploading.
+For example, the plain Jetty that appengine-magic runs in the repl
+does not read the web.xml file; it runs only the servlet you pass as
+an arg.
 
-dev_appserver.sh is what comes with the GAE SDK; it runs a local
-stubbish server environment.  You run it the same way you would if you
-were working in java: just run the shell script as per the GAE
+dev_appserver.sh is what comes with the GAE SDK; it runs a customized
+version of Jetty.  You run it the same way you would if you were
+working in java: just run the shell script as per the GAE
 doccumentation.  Seems to work at the moment.
 
 The other, more interactive way, is to run your app in a repl:
@@ -92,6 +95,9 @@ project.clj):
 Now you can quickly recompile and serve a different servlet in the repl:
 
 	user=> (request)
+
+So you can use the repl to develop your code rapidly, but you always
+want to do system testing using the dev_appserver before deploying.
 
 Eventually it would be nice to run the dev appserver
 (DevAppServerMain) in the repl but that's a lot harder to do than you
