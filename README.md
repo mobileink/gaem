@@ -109,15 +109,6 @@ Step 4.  Deploy to the cloud:
 
 Don't forget to set the version number in project.clj first!
 
-**ANOTHER CAVEAT**
-
-Things seem to work ok on the dev server, but something isn't working
-in the production GAE environment.  It won't serve both servlets.  I
-don't know if this can be fixed or not.  But then again it has nothing
-to do with the plugin functionality.  If I can't figure out how to
-make multiple servlets work with appengine-magic, I'll change the
-template to use a single servlet.
-
 ## Options
 
 ## Examples
