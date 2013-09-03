@@ -1,6 +1,4 @@
-# DEPRECATED 
-
-Use lein-migae and migae-template instead.
+# DEPRECATED - Use migae, lein-migae, and migae-template instead.
 
 gaem
 
